@@ -36,6 +36,7 @@ body {
     z-index: 10;
 }
 
+/* Видео */
 .video-wrapper {
     position: fixed;
     inset: 0;
@@ -53,28 +54,44 @@ video {
     border-radius: 16px;
 }
 
-/* Glass эффект */
+/* Glass overlay */
 .glass-overlay {
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.15);
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     opacity: 0;
     transition: opacity 1s ease;
 }
 
 .glass-text {
-    padding: 30px 50px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(25px);
-    font-size: 36px;
-    color: #ff4da6;
+    padding: 40px 60px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 38px;
+    color: #ff3f9f;
     font-weight: bold;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    animation: fadeInScale 1s ease forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 </style>
 </head>
@@ -92,7 +109,9 @@ video {
 </div>
 
 <div id="glassBlock" class="glass-overlay">
-    <div class="glass-text">С днём рождения, Джумагуль 💖</div>
+    <div class="glass-text">
+        С днём рождения, Джумагуль 💖
+    </div>
 </div>
 
 <script>
@@ -103,81 +122,14 @@ const glass = document.getElementById("glassBlock");
 
 startScreen.addEventListener("click", () => {
     startScreen.style.display = "none";
-
     videoBlock.style.opacity = "1";
-    video.play(); // теперь со звуком работает
-
+    video.play(); // со звуком
 });
 
 video.onended = function() {
-    videoBlock.style.opacity = "0";
-    setTimeout(() => {
-        glass.style.opacity = "1";
-    }, 800);
+    glass.style.opacity = "1"; // видео остаётся под стеклом
 };
 </script>
 
 </body>
-</html>.glass-text {
-    padding: 30px 50px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(25px);
-    font-size: 36px;
-    color: #ff4da6;
-    font-weight: bold;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-    <div id="introText" class="text">А вот сейчас ✨</div>
-</div>
-
-<div id="videoBlock" class="video-wrapper">
-    <video id="myVideo">
-        <source src="video.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div id="glassBlock" class="glass-overlay">
-    <div class="glass-text">С днём рождения, Джумагуль 💖</div>
-</div>
-
-<script>
-const intro = document.getElementById("introText");
-const videoBlock = document.getElementById("videoBlock");
-const video = document.getElementById("myVideo");
-const glass = document.getElementById("glassBlock");
-
-// 1. Появляется первая фраза
-setTimeout(() => {
-    intro.style.opacity = "1";
-}, 500);
-
-// 2. Исчезает
-setTimeout(() => {
-    intro.style.opacity = "0";
-}, 3000);
-
-// 3. Появляется видео
-setTimeout(() => {
-    videoBlock.style.opacity = "1";
-    videoBlock.style.pointerEvents = "auto";
-    video.play();
-}, 4000);
-
-// 4. После окончания видео — жидкое стекло
-video.onended = function() {
-    videoBlock.style.opacity = "0";
-    setTimeout(() => {
-        glass.style.opacity = "1";
-    }, 800);
-};
-</script>
-
-</body>
-      </html>
+</html>
