@@ -15,22 +15,25 @@
 
 body {
     height: 100vh;
+    background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
     overflow: hidden;
 }
 
-.container {
-    text-align: center;
-}
-
-.text {
-    font-size: 30px;
+/* Стартовый экран */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
     color: #d63384;
-    opacity: 0;
-    transition: opacity 1s ease;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .video-wrapper {
@@ -41,11 +44,10 @@ body {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    pointer-events: none;
     transition: opacity 1s ease;
 }
 
-.video-wrapper video {
+video {
     width: 90%;
     max-width: 500px;
     border-radius: 16px;
@@ -65,6 +67,58 @@ body {
 }
 
 .glass-text {
+    padding: 30px 50px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(25px);
+    font-size: 36px;
+    color: #ff4da6;
+    font-weight: bold;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen" class="start-screen">
+    Нажми, чтобы начать ✨
+</div>
+
+<div id="videoBlock" class="video-wrapper">
+    <video id="myVideo">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div id="glassBlock" class="glass-overlay">
+    <div class="glass-text">С днём рождения, Джумагуль 💖</div>
+</div>
+
+<script>
+const startScreen = document.getElementById("startScreen");
+const videoBlock = document.getElementById("videoBlock");
+const video = document.getElementById("myVideo");
+const glass = document.getElementById("glassBlock");
+
+startScreen.addEventListener("click", () => {
+    startScreen.style.display = "none";
+
+    videoBlock.style.opacity = "1";
+    video.play(); // теперь со звуком работает
+
+});
+
+video.onended = function() {
+    videoBlock.style.opacity = "0";
+    setTimeout(() => {
+        glass.style.opacity = "1";
+    }, 800);
+};
+</script>
+
+</body>
+</html>.glass-text {
     padding: 30px 50px;
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
